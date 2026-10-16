@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="5uyzWNKxbDyrFbNdQdHMr0">
+<head data-page-node-id="G0aDbnthCOSgpzmyW3MfDo">
+<meta charset="utf-8" data-page-node-id="u8O0W2SoUX2ilekwlDu4jx">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="2D8C0EoVLC6aXcYxwExiv8">
+<title>输出 · {{ video.creator }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" data-page-node-id="x5kkgsnA63uiga1Q8WoxDZ">
+</head>
+<body data-page-node-id="1B3fIPWJUaRBHbA5QxcFVC">
+<div class="container" data-page-node-id="KblyyufTvltXTu7dtK24En">
+  <div class="topbar">
+    <div class="brand">第二人格 · 英语练习<small>看 → 提取 → 输出 → 保存 → 回看</small></div>
+    <a class="btn btn-sm" href="{{ url_for('history') }}">我的练习记录 →</a>
+  </div>
+  <a class="back-link" href="/" data-page-node-id="eipiBTgl7JSE25U4bmuUDZ">‹ 返回首页</a>
+  <div class="practice-wrap" data-page-node-id="BW9wRtXOhKORNpNqTeygBM">
+    <div class="page-title" data-page-node-id="3ycwNXgtHgKMAZ4ad8hDTv">{{ video.title }}</div>
+    <div class="page-sub" data-page-node-id="vb7wQ1riXdJLuwyYh0DGsX">{{ video.creator }} · Day {{ entry.cycleDay }} · {{ entry.focus }}</div>
+
+    <div class="card" data-page-node-id="J7ABk6kOwGyMZ1RrJ9tzFG">
+      <div class="muted-note" style="font-weight:500;color:var(--text);margin-bottom:8px;" data-page-node-id="qBkWGxh4N5mYDZbMstwo6C">Part B · 雅思侧</div>
+      <div class="muted-note" data-page-node-id="awldmD7kMPrnDqJamvbwA4">题目</div>
+      <div class="kw" data-page-node-id="ODzj4sa3Q3fFcCTqwhzPHO">{{ video.partB.question }}</div>
+      <div class="muted-note" style="margin-top:10px;" data-page-node-id="lIxsXFYhJQOadmRgOt03l3">可套用句型骨架</div>
+      <div class="kw" data-page-node-id="ZCDg5FmBmCkOwGxUkpSQ9y">{{ video.partB.pattern }}</div>
+      <div class="field" data-page-node-id="5MbCXA3mUCpcjX7Yez3I4G">
+        <label data-page-node-id="sV49LFvaPCfmPCUeeUoFxq">✍️ 你的回答 <span class="hint" data-page-node-id="7yV3UYVzYNnwVhbwhNNPrS">先写稿，再开口录 60–90 秒</span></label>
+        <textarea id="partB_answer" rows="5" placeholder="回放自查：第一句是不是结论？"></textarea>
+      </div>
+      <div class="reveal-block hidden" id="refB" data-page-node-id="OR7Ep1f76CaNytorWTVqXl">
+        <div class="rl" data-page-node-id="MRLnrBAeUGNsRTVKNG3UxF">参考答案</div>
+        <div class="rv" data-page-node-id="ln9BorDYfDEPQuJ3GENuP8">{{ video.partB.referenceAnswer }}</div>
+      </div>
+      <button class="btn btn-ghost reveal-toggle" id="btnB" data-page-node-id="JUDfZTv4SYiAOLrmWwMHAU">对答案</button>
+    </div>
+
+    <div class="card" style="margin-top:16px;" data-page-node-id="hmcImg1uM3XWLDFDEi2oHr">
+      <div class="muted-note" style="font-weight:500;color:var(--text);margin-bottom:8px;" data-page-node-id="FJreTGamb0U5qFf6ksGfGs">Part C · 工作侧</div>
+      <div class="muted-note" data-page-node-id="VXimR44ahDwqdnJSrtc3Z1">场景提示</div>
+      <div class="kw" data-page-node-id="FbzmnLtD6L2zsStqDCLFqO">{{ video.partC.scenarioPrompt }}</div>
+      <div class="field" data-page-node-id="AY9VnAaeNAfBedIErZvZq1">
+        <label data-page-node-id="xHDEHO5IET4diR4PXaG9Ka">✍️ 你的真实话术 / 邮件</label>
+        <textarea id="partC_script" rows="5" placeholder="套同一 trait，写一句你真会发出的话。"></textarea>
+      </div>
+      <div class="reveal-block hidden" id="refC" data-page-node-id="uh8MeFAzT9SBD50ohU6yyl">
+        <div class="rl" data-page-node-id="nIHe75j64X9NUg1F8Nx35n">参考话术</div>
+        <div class="rv" data-page-node-id="cDlu86KA3eKl1gtXYRrQiY">{{ video.partC.referenceScript }}</div>
+      </div>
+      <button class="btn btn-ghost reveal-toggle" id="btnC" data-page-node-id="HM5gVvRXGyhpPyxDD0kLPq">对答案</button>
+    </div>
+
+    <div class="save-row" data-page-node-id="qG3LsV1aetXXpvkznWGgkn">
+      <button id="saveBtn" class="btn btn-primary" data-page-node-id="PmhjImFE0nSxd3DTCDKyGV">保存这次输出</button>
+      <span id="saveMsg" class="save-status" data-page-node-id="VTBCDfZGBtia8v4G9wZK2C"></span>
+    </div>
+  </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="muted-note" style="font-weight:500;color:var(--text);margin-bottom:10px;">🎙️ 录一段开口说（可选）</div>
+      <div class="recorder">
+        <button id="recBtn" class="btn btn-ghost rec-btn" data-type="output">● 开始录音</button>
+        <span id="recTime" class="rec-time">00:00</span>
+        <span id="recMsg" class="save-status"></span>
+      </div>
+      <div class="muted-note" style="margin-top:8px;font-size:12px;">先点「保存这次输出」，再录；录音自动关联到这条记录，回看时可回放。</div>
+      <audio id="recPreview" class="rec-preview" controls style="display:none;margin-top:10px;width:100%;"></audio>
+    </div>
+</div>
+
+<script>
+  var DATE = "{{ date }}", VIDEO_ID = "{{ video.id }}";
+  var TS = (function(){ var d=new Date(); function p(n){return (n<10?'0':'')+n;} return ''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds()); })();
+  function bindReveal(btnId, refId){
+    document.getElementById(btnId).addEventListener("click", function(){
+      var r = document.getElementById(refId);
+      var wasHidden = r.classList.contains("hidden");
+      r.classList.toggle("hidden");
+      this.textContent = wasHidden ? "收起答案" : "对答案";
+    });
+  }
+  bindReveal("btnB", "refB");
+  bindReveal("btnC", "refC");
+
+  document.getElementById("saveBtn").addEventListener("click", function(){
+    var payload = {
+      date: DATE, videoId: VIDEO_ID, type: "output", ts: TS,
+      answers: [
+        {label:"Part B", question: {{ video.partB.question|tojson }},
+         answer: document.getElementById("partB_answer").value,
+         referenceAnswer: {{ video.partB.referenceAnswer|tojson }} },
+        {label:"Part C", question: {{ video.partC.scenarioPrompt|tojson }},
+         answer: document.getElementById("partC_script").value,
+         referenceAnswer: {{ video.partC.referenceScript|tojson }} }
+      ]
+    };
+    fetch("/save", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ document.getElementById("saveMsg").textContent = d.ok ? ("已保存：" + d.file) : "保存失败"; })
+      .catch(function(e){ document.getElementById("saveMsg").textContent = "网络错误：" + e; });
+  });
+
+  (function(){
+    var recBtn = document.getElementById('recBtn');
+    if(!recBtn) return;
+    var TYPE = recBtn.getAttribute('data-type');
+    var recTime = document.getElementById('recTime');
+    var recMsg = document.getElementById('recMsg');
+    var preview = document.getElementById('recPreview');
+    var mr = null, chunks = [], timer = null, secs = 0, stream = null;
+    function fmt(s){ var m=Math.floor(s/60),x=s%60; return (m<10?'0':'')+m+':'+(x<10?'0':'')+x; }
+    if(!navigator.mediaDevices || !window.MediaRecorder){ recBtn.disabled = true; recMsg.textContent='当前浏览器不支持录音'; return; }
+    recBtn.addEventListener('click', function(){
+      if(mr && mr.state==='recording'){ mr.stop(); return; }
+      navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+        stream=s; chunks=[];
+        mr=new MediaRecorder(s);
+        mr.ondataavailable=function(e){ if(e.data && e.data.size>0) chunks.push(e.data); };
+        mr.onstop=function(){
+          if(stream) stream.getTracks().forEach(function(t){t.stop();});
+          var blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});
+          preview.src=URL.createObjectURL(blob); preview.style.display='block';
+          upload(blob);
+        };
+        mr.start(); secs=0; recTime.textContent='00:00';
+        timer=setInterval(function(){ secs++; recTime.textContent=fmt(secs); },1000);
+        recBtn.textContent='■ 停止录音'; recBtn.classList.add('recording'); recMsg.textContent='录音中…';
+      }).catch(function(err){ recMsg.textContent='无法访问麦克风：'+((err&&err.name)||err); });
+    });
+    function upload(blob){
+      var ext='webm', mt=blob.type||'';
+      if(mt.indexOf('ogg')>=0) ext='ogg'; else if(mt.indexOf('mp4')>=0) ext='mp4'; else if(mt.indexOf('m4a')>=0) ext='m4a';
+      var fd=new FormData();
+      fd.append('audio', blob, 'rec.'+ext);
+      fd.append('date', DATE); fd.append('type', TYPE); fd.append('ts', TS);
+      fetch('/save-audio',{method:'POST',body:fd})
+        .then(function(r){return r.json();})
+        .then(function(d){ recMsg.textContent=d.ok?('已保存录音：'+d.file):('保存失败：'+(d.error||'')); recBtn.textContent='● 重新录音'; recBtn.classList.remove('recording'); clearInterval(timer); })
+        .catch(function(e){ recMsg.textContent='上传失败：'+e; recBtn.textContent='● 重新录音'; recBtn.classList.remove('recording'); clearInterval(timer); });
+    }
+  })();
+</script>
+</body>
+</html>

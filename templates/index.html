@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="Kn2IXWAFSbDSsJhbBlnKzh">
+<head data-page-node-id="dh8zqYqbYAAJbQov78MuKe">
+<meta charset="utf-8" data-page-node-id="XGuXJqz7FikWkEEKvG6PeA">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="H5CCKfGudCrotJ08mcoNR2">
+<title>第二人格 · 英语练习</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" data-page-node-id="kaVugkzGcWIopXIfTvJ5oD">
+</head>
+<body data-page-node-id="GM8qzxM0C8Fvw1ZAuJOB0d">
+<div class="container" data-page-node-id="S385lkL0rzSySSQObgyzWc">
+  <div class="topbar" data-page-node-id="K6OBtMZQ3RBqVRPppdiX3H">
+    <div class="brand" data-page-node-id="efNgCMCSiaSlEZFxlcXhID">第二人格 · 英语练习<small data-page-node-id="BPNJ3P65KnJyrrW341wkBn">看 → 提取 → 输出 → 保存 → 回看</small></div>
+    <a class="btn btn-sm" href="{{ url_for('history') }}" data-page-node-id="UJZhB03nlSzd6YuOec04Db">我的练习记录 →</a>
+  </div>
+
+  <div class="split" data-page-node-id="NGViA9QzXTaJcnbNDG24Dd">
+    <!-- 左：日历 -->
+    <div class="col-cal card" data-page-node-id="Czv3S9KE5nsIuUvjkcdKCM">
+      <div class="cal-head" data-page-node-id="7ow0y7vtC5i4eAlaRTxyqw">
+        <div class="cal-nav" data-page-node-id="clfjkOdvtksmpJhO6ACKMq">
+          <a class="nav-arrow" href="/?year={{ prev[0] }}&month={{ prev[1] }}" title="上个月" data-page-node-id="MRQe6tRwiDMjSA41A1gdhL">‹</a>
+          <select class="ym-select" id="selYear" onchange="goYM()" data-page-node-id="5BEn4uYs54VFi3rL0YbThD">
+            {% for y in years %}<option value="{{ y }}" {% if y == year %}selected{% endif %} data-page-node-id="YYrjB7jZL9NIG9LUAE5ETp">{{ y }} 年</option>{% endfor %}
+          </select>
+          <select class="ym-select" id="selMonth" onchange="goYM()" data-page-node-id="GHgrcdn2KpZ6Rx2XZUE3IY">
+            {% for m in range(1, 13) %}<option value="{{ m }}" {% if m == month %}selected{% endif %} data-page-node-id="Exm9OwKEXwekpbYuSohNYv">{{ m }} 月</option>{% endfor %}
+          </select>
+          <a class="nav-arrow" href="/?year={{ next[0] }}&month={{ next[1] }}" title="下个月" data-page-node-id="iOwCVEZ2cVLYaKFPuel0PT">›</a>
+        </div>
+        <span class="cal-count" data-page-node-id="44QIE2HocSRQyQzTxsCmNY">计划 {{ plan|length }} 天</span>
+      </div>
+      <div class="cal" id="cal" data-page-node-id="rgXxl2Dn0FfDczskufQxmB">
+        <div class="cal-hd" data-page-node-id="jrQjRHFbeCVEXugzl38Ta4">一</div><div class="cal-hd" data-page-node-id="uAcVOCnI7ia4bIoYhL3T8l">二</div><div class="cal-hd" data-page-node-id="z0EioFezv4ODcciEVCAdGl">三</div><div class="cal-hd" data-page-node-id="0J3hVSicnwTh3H6HHGV80A">四</div><div class="cal-hd" data-page-node-id="aDI62DLa82F0aCfPQnDxct">五</div><div class="cal-hd" data-page-node-id="dIrdKccdLklaNkjlXOTU3c">六</div><div class="cal-hd" data-page-node-id="IYIs0t5yoNGk8VWkFmSoWj">日</div>
+      </div>
+      <div class="cal-legend" data-page-node-id="7ofzQmbJVU5goNrLPHKEE8"><i data-page-node-id="PesAlPeSDIKkadAAGglYKS"></i> 青绿点 = 有安排 · ✓ 已完成（输入+输出） · 小橙点 = 进行中（仅输入） · 点日期进当天练习</div>
+    </div>
+
+    <!-- 右：本月计划 -->
+    <div class="col-plan" data-page-node-id="pUCkAEvKlZr9ackCDjcqO1">
+      <div class="cal-head" style="margin-bottom:14px;" data-page-node-id="mL5465SLccKjGzXAKSR1Cz">
+        <span class="cal-title" data-page-node-id="CvBWD8lzAZG2DHzkwGNq6u">{{ year }}年{{ month }}月计划</span>
+      </div>
+      {% for s in plan %}
+      <div class="plan-row" data-page-node-id="e7Due6HOBCMTrynaHKZJEL">
+        <div class="plan-meta" data-page-node-id="TK2MKUWBaZTyY5bxAoQupb">
+          <div class="pd" data-page-node-id="RtED2HBHT60o5swcyBHr3E">{{ s.date[5:] }} · {{ videos[s.videoId].creator }}</div>
+          <div class="pt" data-page-node-id="nzdqGB1SfiKcaYV5ybSr9w">{{ videos[s.videoId].title }} · Day {{ s.cycleDay }} / {{ s.focus }}</div>
+        </div>
+        {% set st = done.get(s.date) %}
+        <div class="plan-status">
+          {% if st and st.output %}<span class="badge badge-done">已完成</span>
+          {% elif st and st.input %}<span class="badge badge-doing">进行中</span>
+          {% else %}<span class="badge badge-todo">待练</span>{% endif %}
+        </div>
+        <div class="plan-actions" data-page-node-id="oht9D9rriR4nAqvGh89QnJ">
+          <a class="btn btn-sm" href="{{ videos[s.videoId].youtubeUrl }}" target="_blank" rel="noopener" data-page-node-id="bunboiVoj1bvWILi6CCmUo">视频</a>
+          <a class="btn btn-sm" href="{{ url_for('input_page', date=s.date) }}" data-page-node-id="jzZo2Caqe7rpSuYVGl0DuB">输入</a>
+          <a class="btn btn-sm btn-primary" href="{{ url_for('output_page', date=s.date) }}" data-page-node-id="AyXGq4neNqzD2OPjrvLNaB">输出</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty" data-page-node-id="haUjQ3z3S4Bs7buAewmhIX">这个月还没有练习安排，用左上角翻到计划月看看。</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function goYM(){
+    var y = document.getElementById('selYear').value;
+    var m = document.getElementById('selMonth').value;
+    window.location.href = '/?year=' + y + '&month=' + m;
+  }
+  var CELLS = {{ cells|tojson }};
+  var TODAY = "{{ today }}";
+  var DONE = {{ done|tojson }};
+  var grid = document.getElementById('cal');
+  CELLS.forEach(function(c){
+    var d = document.createElement('div');
+    if(!c){ d.className='cal-cell empty'; grid.appendChild(d); return; }
+    d.className = 'cal-cell' + (c.entry ? ' scheduled' : '') + (c.date===TODAY ? ' today' : '');
+    var txt = document.createElement('span');
+    txt.textContent = c.day;
+    d.appendChild(txt);
+    if(c.entry){
+      var dot = document.createElement('span');
+      dot.className = 'cal-dot';
+      d.appendChild(dot);
+      d.addEventListener('click', function(){ window.location.href = '/output/' + c.date; });
+      // 完成态标记
+      var st = DONE[c.date];
+      if(st){
+        if(st.output){
+          var ck = document.createElement('span');
+          ck.className = 'cal-check';
+          ck.textContent = '✓';
+          ck.title = '已完成（输入+输出）';
+          d.appendChild(ck);
+        } else if(st.input){
+          var sp = document.createElement('span');
+          sp.className = 'cal-start';
+          sp.title = '进行中（仅输入）';
+          d.appendChild(sp);
+        }
+      }
+    }
+    grid.appendChild(d);
+  });
+</script>
+</body>
+</html>

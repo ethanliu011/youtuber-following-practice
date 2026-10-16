@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-14",
+  "videoId": "matt1",
+  "type": "output",
+  "answers": [
+    {
+      "label": "Part B",
+      "question": "q",
+      "answer": "my ans",
+      "referenceAnswer": "ref"
+    }
+  ]
+}

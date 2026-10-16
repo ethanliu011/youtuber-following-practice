@@ -1,0 +1,166 @@
+/* ============================================================
+   第二人格 · 英语练习 —— 设计系统（原生，零构建）
+   令牌：中性色用 Slate 体系 + 青绿主色 + 柔和阴影层级
+   ============================================================ */
+:root{
+  --bg:#EEF2F6;
+  --surface:#FFFFFF;
+  --surface-2:#F8FAFC;
+  --accent:#0D9488;
+  --accent-hover:#0B7E73;
+  --accent-soft:#ECFDF5;
+  --ink:#0F172A;
+  --text:#334155;
+  --muted:#64748B;
+  --faint:#94A3B8;
+  --border:#E5E9F0;
+  --border-strong:#CBD5E1;
+  --amber:#D97706;
+  --amber-soft:#FEF3E2;
+  --radius:16px;
+  --radius-sm:10px;
+  --radius-xs:8px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+  --shadow:0 4px 14px rgba(15,23,42,.06);
+  --shadow-lg:0 12px 32px rgba(15,23,42,.10);
+  --ring:0 0 0 3px rgba(13,148,136,.15);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none;}
+a:hover{color:var(--accent-hover);}
+.container{max-width:1040px;margin:0 auto;padding:28px 24px 72px;}
+
+/* 顶栏（四页统一） */
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.brand{display:flex;align-items:baseline;gap:10px;font-weight:600;font-size:18px;color:var(--ink);letter-spacing:.2px;}
+.brand small{color:var(--muted);font-weight:400;font-size:12.5px;}
+
+/* 按钮 */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--accent);color:var(--accent);background:#fff;
+  border-radius:var(--radius-xs);padding:7px 14px;font-size:13px;font-weight:500;
+  cursor:pointer;transition:.15s;font-family:inherit;line-height:1.3;box-shadow:var(--shadow-sm);
+}
+.btn:hover{background:var(--accent-soft);}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff;}
+.btn-sm{padding:5px 12px;font-size:12.5px;}
+.btn-ghost{background:#fff;border-color:var(--border-strong);color:var(--muted);box-shadow:none;}
+.btn-ghost:hover{background:var(--surface-2);color:var(--text);border-color:var(--accent);}
+
+/* 卡片 */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow-sm);}
+.card + .card{margin-top:16px;}
+
+/* 首页：左日历 + 右计划 */
+.split{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;}
+.col-cal{flex:0 0 340px;}
+.col-plan{flex:1;min-width:340px;}
+
+/* 日历 */
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.cal-title{font-weight:600;font-size:16px;color:var(--ink);}
+.cal-count{font-size:12px;color:var(--accent);font-weight:600;background:var(--accent-soft);padding:3px 10px;border-radius:20px;}
+.cal-nav{display:flex;align-items:center;gap:8px;}
+.nav-arrow{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--border-strong);border-radius:8px;color:var(--muted);font-size:16px;line-height:1;transition:.15s;}
+.nav-arrow:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+.ym-select{border:1px solid var(--border-strong);border-radius:8px;padding:4px 8px;font-size:12.5px;color:var(--ink);background:#fff;font-family:inherit;cursor:pointer;transition:.15s;}
+.ym-select:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring);}
+/* 表头与日期共用同一 7 列 grid，确保列线完全对齐 */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.cal-hd{font-size:11.5px;color:var(--faint);text-align:center;padding-bottom:8px;font-weight:600;letter-spacing:.5px;}
+.cal-cell{position:relative;text-align:center;padding:10px 0;border-radius:var(--radius-xs);font-size:14px;color:var(--text);min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.12s;}
+.cal-cell.empty{min-height:0;visibility:hidden;padding:0;}
+.cal-cell.scheduled{cursor:pointer;font-weight:500;}
+.cal-cell.scheduled:hover{background:var(--accent-soft);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
+.cal-cell.today{border:1.5px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600;}
+.cal-dot{display:block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:4px;}
+/* 完成态标记：已练完打青绿对勾，仅输入打暖橙点 */
+.cal-check{position:absolute;top:4px;right:5px;width:15px;height:15px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;}
+.cal-start{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--amber);}
+.cal-legend{font-size:11.5px;color:var(--faint);margin-top:14px;display:flex;align-items:center;gap:6px;}
+.cal-legend i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;}
+
+/* 计划列表 */
+.plan-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:var(--radius-xs);background:#fff;box-shadow:var(--shadow-sm);transition:.15s;}
+.plan-row + .plan-row{margin-top:10px;}
+.plan-row:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.plan-meta .pd{font-weight:600;font-size:14px;color:var(--ink);}
+.plan-meta .pt{font-size:12.5px;color:var(--muted);margin-top:3px;}
+.plan-actions{display:flex;gap:8px;flex-shrink:0;}
+.plan-status{flex-shrink:0;}
+.badge-done{background:var(--accent-soft);color:var(--accent);}
+.badge-doing{background:var(--amber-soft);color:var(--amber);}
+.badge-todo{background:var(--surface-2);color:var(--faint);border:1px solid var(--border);}
+
+/* 练习页：标题区 */
+.practice-wrap{max-width:760px;margin:0 auto;}
+.back-link{font-size:13px;color:var(--muted);margin-bottom:16px;display:inline-flex;align-items:center;gap:4px;}
+.back-link:hover{color:var(--accent);}
+.page-title{font-weight:600;font-size:22px;color:var(--ink);margin:0 0 6px;letter-spacing:.2px;}
+.page-sub{color:var(--muted);font-size:13.5px;margin:0 0 22px;}
+
+/* 参考块（弱色） */
+.ref{border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;background:var(--surface-2);}
+.ref h3{margin:0 0 12px;font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;}
+.trait-list{margin:0;padding-left:20px;color:var(--text);}
+.trait-list li{margin:5px 0;}
+.vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 18px;margin:0;}
+.vocab div{font-size:14px;color:var(--text);}
+.vocab b{color:var(--accent);font-weight:600;}
+.kw{border-left:3px solid var(--accent);padding:8px 0 8px 14px;margin:10px 0;color:var(--ink);font-size:14px;background:linear-gradient(90deg,var(--accent-soft),transparent 60%);border-radius:0 8px 8px 0;}
+.kw + .kw{margin-top:6px;}
+
+/* 用户输入区（主色高亮） */
+.field{margin-top:18px;}
+.field > label{display:block;font-weight:600;font-size:14px;margin-bottom:8px;color:var(--ink);}
+.field .hint{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:6px;}
+textarea,input[type=text]{
+  width:100%;border:1.5px solid var(--border-strong);border-radius:var(--radius-xs);
+  padding:12px 14px;font-family:inherit;font-size:14.5px;color:var(--text);
+  background:#fff;resize:vertical;line-height:1.55;transition:.15s;
+}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring);}
+textarea{min-height:88px;}
+.save-row{margin-top:22px;display:flex;align-items:center;gap:14px;}
+.save-status{font-size:13px;color:var(--accent);font-weight:500;}
+
+/* 先答后揭 */
+.reveal-block{margin-top:14px;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:14px 16px;background:var(--surface-2);}
+.reveal-block .rl{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;font-weight:600;}
+.reveal-block .rv{font-size:14px;color:var(--ink);white-space:pre-wrap;line-height:1.6;}
+.hidden{display:none;}
+.reveal-toggle{margin-top:12px;}
+.muted-note{font-size:13px;color:var(--muted);}
+
+/* 回看 */
+.rec{border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;cursor:pointer;transition:.15s;background:#fff;box-shadow:var(--shadow-sm);}
+.rec + .rec{margin-top:10px;}
+.rec:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.rec-date{font-weight:600;font-size:14px;color:var(--ink);}
+.rec-sub{font-size:12.5px;color:var(--muted);margin-top:3px;}
+.badge{font-size:11.5px;padding:4px 11px;border-radius:20px;font-weight:600;flex-shrink:0;}
+.badge-input{background:var(--accent-soft);color:var(--accent);}
+.badge-output{background:var(--amber-soft);color:var(--amber);}
+.rec-detail{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:none;}
+.rec-detail.open{display:block;}
+.rec-detail .dl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:12px 0 5px;font-weight:600;}
+.rec-detail .dl:first-child{margin-top:0;}
+.rec-detail .dv{font-size:14px;color:var(--text);white-space:pre-wrap;line-height:1.6;}
+.empty{color:var(--muted);font-size:14px;padding:32px;text-align:center;}
+
+/* 录音组件 */
+.recorder{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.rec-btn.recording{border-color:var(--amber);color:var(--amber);background:var(--amber-soft);}
+.rec-btn.recording::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-right:6px;animation:recpulse 1s infinite;}
+.rec-time{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);font-weight:600;}
+.rec-preview{height:40px;}
+@keyframes recpulse{0%,100%{opacity:1;}50%{opacity:.3;}}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>输入 · {{ video.creator }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <div class="brand">第二人格 · 英语练习<small>看 → 提取 → 输出 → 保存 → 回看</small></div>
+    <a class="btn btn-sm" href="{{ url_for('history') }}">我的练习记录 →</a>
+  </div>
+  <a class="back-link" href="/">‹ 返回首页</a>
+  <div class="practice-wrap">
+    <div class="page-title">{{ video.title }}</div>
+    <div class="page-sub">{{ video.creator }} · Day {{ entry.cycleDay }} · {{ entry.focus }} ·
+      <a href="{{ video.youtubeUrl }}" target="_blank" rel="noopener">打开视频 ↗</a>
+    </div>
+
+    <div class="card ref">
+      <h3>Part A · 这条视频能拿什么（看完视频前先扫一眼）</h3>
+      <div style="margin-top:12px;">
+        <div class="muted-note" style="font-weight:500;margin-bottom:6px;">核心特质</div>
+        <ul class="trait-list">
+          {% for t in video.partA.coreTraits %}<li>{{ t }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="muted-note" style="font-weight:500;margin-bottom:6px;">词汇 / 搭配</div>
+        <div class="vocab">
+          {% for v in video.partA.vocab %}<div><b>{{ v.term }}</b> — {{ v.meaning }}</div>{% endfor %}
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="muted-note" style="font-weight:500;margin-bottom:6px;">重点句（开着字幕确认）</div>
+        {% for s in video.partA.keySentences %}<div class="kw">{{ s }}</div>{% endfor %}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="muted-note" style="font-weight:500;color:var(--text);margin-bottom:6px;">看完视频后，写下你的输入</div>
+      <div class="field">
+        <label>① 锚句 <span class="hint">最想跟着说的一句</span></label>
+        <textarea id="anchor" rows="2" placeholder="例：Do fewer things, work at a natural pace, and obsess over quality."></textarea>
+      </div>
+      <div class="field">
+        <label>② 我拆到的核心特质 <span class="hint">用自己话概括</span></label>
+        <textarea id="trait" rows="2" placeholder="这个人的说话方式里，最值得你搬走的那个点。"></textarea>
+      </div>
+      <div class="field">
+        <label>③ 我的改写 <span class="hint">套到你的场景</span></label>
+        <textarea id="rewrite" rows="4" placeholder="把上面的句式套到你真实会遇到的一句话上（生活/工作/雅思）。"></textarea>
+      </div>
+      <div class="field">
+        <label>④ 其他笔记</label>
+        <textarea id="notes" rows="3" placeholder="语速、停顿、重音、触发你的点……"></textarea>
+      </div>
+      <div class="save-row">
+        <button id="saveBtn" class="btn btn-primary">保存这次输入</button>
+        <span id="saveMsg" class="save-status"></span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="muted-note" style="font-weight:500;color:var(--text);margin-bottom:10px;">🎙️ 录一段开口说（可选）</div>
+      <div class="recorder">
+        <button id="recBtn" class="btn btn-ghost rec-btn" data-type="input">● 开始录音</button>
+        <span id="recTime" class="rec-time">00:00</span>
+        <span id="recMsg" class="save-status"></span>
+      </div>
+      <div class="muted-note" style="margin-top:8px;font-size:12px;">先点「保存这次输入」，再录；录音自动关联到这条记录，回看时可回放。</div>
+      <audio id="recPreview" class="rec-preview" controls style="display:none;margin-top:10px;width:100%;"></audio>
+    </div>
+  </div>
+</div>
+
+<script>
+  var DATE = "{{ date }}", VIDEO_ID = "{{ video.id }}";
+  var TS = (function(){ var d=new Date(); function p(n){return (n<10?'0':'')+n;} return ''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds()); })();
+  document.getElementById("saveBtn").addEventListener("click", function(){
+    var payload = {
+      date: DATE, videoId: VIDEO_ID, type: "input", ts: TS,
+      anchor: document.getElementById("anchor").value,
+      trait: document.getElementById("trait").value,
+      rewrite: document.getElementById("rewrite").value,
+      notes: document.getElementById("notes").value
+    };
+    fetch("/save", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ document.getElementById("saveMsg").textContent = d.ok ? ("已保存：" + d.file) : "保存失败"; })
+      .catch(function(e){ document.getElementById("saveMsg").textContent = "网络错误：" + e; });
+  });
+
+  (function(){
+    var recBtn = document.getElementById('recBtn');
+    if(!recBtn) return;
+    var TYPE = recBtn.getAttribute('data-type');
+    var recTime = document.getElementById('recTime');
+    var recMsg = document.getElementById('recMsg');
+    var preview = document.getElementById('recPreview');
+    var mr = null, chunks = [], timer = null, secs = 0, stream = null;
+    function fmt(s){ var m=Math.floor(s/60),x=s%60; return (m<10?'0':'')+m+':'+(x<10?'0':'')+x; }
+    if(!navigator.mediaDevices || !window.MediaRecorder){ recBtn.disabled = true; recMsg.textContent='当前浏览器不支持录音'; return; }
+    recBtn.addEventListener('click', function(){
+      if(mr && mr.state==='recording'){ mr.stop(); return; }
+      navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+        stream=s; chunks=[];
+        mr=new MediaRecorder(s);
+        mr.ondataavailable=function(e){ if(e.data && e.data.size>0) chunks.push(e.data); };
+        mr.onstop=function(){
+          if(stream) stream.getTracks().forEach(function(t){t.stop();});
+          var blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});
+          preview.src=URL.createObjectURL(blob); preview.style.display='block';
+          upload(blob);
+        };
+        mr.start(); secs=0; recTime.textContent='00:00';
+        timer=setInterval(function(){ secs++; recTime.textContent=fmt(secs); },1000);
+        recBtn.textContent='■ 停止录音'; recBtn.classList.add('recording'); recMsg.textContent='录音中…';
+      }).catch(function(err){ recMsg.textContent='无法访问麦克风：'+((err&&err.name)||err); });
+    });
+    function upload(blob){
+      var ext='webm', mt=blob.type||'';
+      if(mt.indexOf('ogg')>=0) ext='ogg'; else if(mt.indexOf('mp4')>=0) ext='mp4'; else if(mt.indexOf('m4a')>=0) ext='m4a';
+      var fd=new FormData();
+      fd.append('audio', blob, 'rec.'+ext);
+      fd.append('date', DATE); fd.append('type', TYPE); fd.append('ts', TS);
+      fetch('/save-audio',{method:'POST',body:fd})
+        .then(function(r){return r.json();})
+        .then(function(d){ recMsg.textContent=d.ok?('已保存录音：'+d.file):('保存失败：'+(d.error||'')); recBtn.textContent='● 重新录音'; recBtn.classList.remove('recording'); clearInterval(timer); })
+        .catch(function(e){ recMsg.textContent='上传失败：'+e; recBtn.textContent='● 重新录音'; recBtn.classList.remove('recording'); clearInterval(timer); });
+    }
+  })();
+</script>
+</body>
+</html>

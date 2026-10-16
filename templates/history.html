@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的练习记录</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <div class="brand">第二人格 · 英语练习<small>看 → 提取 → 输出 → 保存 → 回看</small></div>
+    <a class="btn btn-sm" href="/">返回首页 →</a>
+  </div>
+  <a class="back-link" href="/">‹ 返回日历</a>
+  <div class="practice-wrap">
+    <div class="page-title">我的练习记录</div>
+    <div class="page-sub">按保存时间倒序 · 点开看「我当时写的」vs「参考」</div>
+
+    {% if records|length == 0 %}
+      <div class="card empty">还没有任何保存。去日历点一个「输出」开始练习吧。</div>
+    {% else %}
+      {% for r in records %}
+      <div class="rec" data-i="{{ loop.index }}">
+        <div class="rec-head">
+          <div>
+            <div class="rec-date">{{ r.date }} · {{ r._creator }}</div>
+            <div class="rec-sub">{{ r._title }} · {{ r.savedAt }}</div>
+          </div>
+          <span class="badge badge-{{ r.type }}">{{ '输入' if r.type=='input' else '输出' }}</span>
+        </div>
+        <div class="rec-detail" id="det{{ loop.index }}">
+          {% if r.type == 'input' %}
+            <div class="dl">锚句</div><div class="dv">{{ r.anchor or '—' }}</div>
+            <div class="dl">核心特质</div><div class="dv">{{ r.trait or '—' }}</div>
+            <div class="dl">我的改写</div><div class="dv">{{ r.rewrite or '—' }}</div>
+            <div class="dl">笔记</div><div class="dv">{{ r.notes or '—' }}</div>
+          {% else %}
+            {% for a in r.answers %}
+              <div class="dl">{{ a.label }} · {{ a.question }}</div>
+              <div class="dv"><b>我当时写的：</b>{{ a.answer or '—' }}</div>
+              <div class="dv"><b>参考：</b>{{ a.referenceAnswer }}</div>
+            {% endfor %}
+          {% endif %}
+          {% if r.audio %}
+          <div class="dl">你的录音</div>
+          <div class="dv"><audio controls src="{{ r.audio }}" style="width:100%;max-width:420px;height:40px;"></audio></div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.rec').forEach(function(el){
+    el.addEventListener('click', function(e){
+      if(e.target.tagName === 'A') return;
+      var d = document.getElementById('det' + el.getAttribute('data-i'));
+      d.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

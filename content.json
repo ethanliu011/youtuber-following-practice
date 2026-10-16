@@ -1,0 +1,236 @@
+{
+  "startDate": "2026-10-14",
+  "videos": {
+    "matt1": {
+      "id": "matt1",
+      "creator": "Matt D'Avella",
+      "title": "Why I Stopped Hustling and Started Working Slower",
+      "youtubeUrl": "https://www.youtube.com/watch?v=GKWrSLCqgG4",
+      "partA": {
+        "coreTraits": [
+          "反直觉结论先行 + 个人实验叙事",
+          "先抛反常识结果 → 给可量化理由 → 排比收尾"
+        ],
+        "vocab": [
+          { "term": "momentum", "meaning": "势头 / 节奏感" },
+          { "term": "overhead tax", "meaning": "同时接多个项目带来的隐性管理成本" },
+          { "term": "obsess over quality", "meaning": "死磕质量" },
+          { "term": "natural pace", "meaning": "自然节奏" },
+          { "term": "knowledge work", "meaning": "知识型工作" }
+        ],
+        "keySentences": [
+          "I cut my work schedule down to about 25 hours a week — and I haven't lost momentum.",
+          "The problem with knowledge work is you can't easily measure inputs and outputs.",
+          "Do fewer things, work at a natural pace, and obsess over quality.",
+          "Without quality, slow productivity is just working less."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（Part 2 讲『一次改变』）",
+        "pattern": "I used to think X. Then I tried Y for [N] days/weeks, and here's what actually happened — ...",
+        "question": "Describe a change you made to your work or study routine.",
+        "referenceAnswer": "I used to think working longer meant getting more done. Then I tried cutting my focused work to a natural pace for two weeks, and here's what actually happened — my output didn't drop, but my energy did."
+      },
+      "partC": {
+        "title": "工作侧（试点 / AB 实验复盘）",
+        "scenarioPrompt": "未来 3 天你有什么汇报 / 复盘 / 1:1？用此结构套：结论 → 理由 → 修正。",
+        "referenceScript": "Here's the change I'm proposing for the DMS pilot. The reason I'm cutting the scope is the overhead tax from running too many workstreams at once. That said, if store-side capacity frees up in November, we reopen the second phase."
+      }
+    },
+    "chris1": {
+      "id": "chris1",
+      "creator": "Chris Do / The Futur",
+      "title": "How to Negotiate When Clients Can't Afford Your Prices",
+      "youtubeUrl": "https://thefutur.com/watch/negotiate-when-clients-cant-afford-your-price",
+      "partA": {
+        "coreTraits": [
+          "复述对方观点，再回应（reflective rephrasing）",
+          "ask more than you tell —— 多问少说"
+        ],
+        "vocab": [
+          { "term": "reflective rephrasing", "meaning": "复述式回应（先确认听懂）" },
+          { "term": "baseline", "meaning": "基线 / 现状" },
+          { "term": "benchmark", "meaning": "基准 / 目标线" },
+          { "term": "minimum level of engagement (MLE)", "meaning": "最低承接门槛" },
+          { "term": "risk-averse", "meaning": "风险厌恶的" }
+        ],
+        "keySentences": [
+          "So if I'm hearing you right, your concern is the budget, not the scope.",
+          "Help me understand — what happens if we don't hit that number?",
+          "Rather than lower the price, let me change the deal."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（Part 3 带让步的观点表达）",
+        "pattern": "So if I'm hearing you right, the assumption is X. Help me understand — ... Rather than accept that, I'd argue Y.",
+        "question": "Some people think competitive pricing is the key to business success. To what extent do you agree or disagree?",
+        "referenceAnswer": "So if I'm hearing you right, the assumption is lower prices always win. Help me understand — what happens to the perceived value when everyone races to the bottom? Rather than accept that premise, I'd argue quality and trust matter more for long-term survival."
+      },
+      "partC": {
+        "title": "工作侧（需求评审 / 预算谈判 / 供应商沟通）",
+        "scenarioPrompt": "先复述对方，再回应。把『你说的是 X，不是 Y』变成你的肌肉记忆。",
+        "referenceScript": "So if I'm hearing you right, the store-side team's concern is the training load, not the new UI. Help me understand — what's the bottleneck in their current week? Rather than push the go-live back, let me propose a phased rollout."
+      }
+    },
+    "cleo1": {
+      "id": "cleo1",
+      "creator": "Cleo Abram",
+      "title": "What If I Fell Into A Black Hole?",
+      "youtubeUrl": "https://www.youtube.com/watch?v=BKIkTKqWMfg",
+      "partA": {
+        "coreTraits": [
+          "用『如果……那就……』带听众走（curiosity hook + cause-effect）",
+          "把难懂的东西讲得明亮、乐观"
+        ],
+        "vocab": [
+          { "term": "event horizon", "meaning": "事件视界" },
+          { "term": "spaghettification", "meaning": "意大利面化（拉伸效应）" },
+          { "term": "singularity", "meaning": "奇点" },
+          { "term": "cause and effect", "meaning": "因果" },
+          { "term": "optimistic science", "meaning": "乐观的科学叙事" }
+        ],
+        "keySentences": [
+          "What if you just kept digging — what would you actually hit?",
+          "If gravity wins, then time itself starts to bend.",
+          "And weirdly, that's the thing that could unlock quantum computing."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（Part 3 科技 / 未来类）",
+        "pattern": "What if X? If Y, then Z. And that's exactly the kind of win that ...",
+        "question": "Some people worry that AI will replace human jobs. What is your view?",
+        "referenceAnswer": "What if we just pointed an LLM at our internal knowledge base? If it works, then store staff get answers in seconds instead of calling support. And that's exactly the kind of win that pays for the experiment."
+      },
+      "partC": {
+        "title": "工作侧（给老板讲 AI / 技术方案 —— 你的主场）",
+        "scenarioPrompt": "用好奇钩子开场，再给因果，最后收乐观。别一上来堆术语。",
+        "referenceScript": "What if we just gave every store a copilot for the DMS? If adoption holds, then first-call resolution climbs and support tickets drop. And weirdly, that frees your senior staff to handle the messy cases."
+      }
+    },
+    "johnny1": {
+      "id": "johnny1",
+      "creator": "Johnny Harris",
+      "title": "Why Switzerland Has 374,142 Bunkers (and likely more)",
+      "youtubeUrl": "https://www.youtube.com/watch?v=9bPIaHg11mI",
+      "partA": {
+        "coreTraits": [
+          "把复杂的事讲成故事（narrative scaffolding）",
+          "先抛具体场景，再拉到抽象结论"
+        ],
+        "vocab": [
+          { "term": "neutral country", "meaning": "中立国" },
+          { "term": "bunker", "meaning": "地堡 / 防空洞" },
+          { "term": "choke point", "meaning": "瓶颈 / 隘口" },
+          { "term": "redoubt", "meaning": "要塞" },
+          { "term": "compound over time", "meaning": "随时间复利 / 累积" }
+        ],
+        "keySentences": [
+          "Picture this: a country where nearly every building has a hidden shelter.",
+          "And that's really a story about how a nation decided to trust no one but itself.",
+          "But here's the part most people miss..."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（Part 2 地点 / 事件 + Writing T2 论证结构）",
+        "pattern": "Picture this: [具体场景]. And the real story is [抽象结论].",
+        "question": "Describe a place that is important to your country's history.",
+        "referenceAnswer": "Picture this: a small dealership where every repair bay is tracked in real time — that's the transparency workshop we built. And the real story isn't the tech; it's that customers stopped distrusting the bill."
+      },
+      "partC": {
+        "title": "工作侧（项目背景铺垫：『为什么这件事重要』）",
+        "scenarioPrompt": "先讲一个具体场景让对方『看见』，再收一句抽象结论。别一上来就讲 KPI。",
+        "referenceScript": "Picture this: a regional office still running the old DMS while HQ shipped the new one. That's the gap we're closing. And the real story is about trust — stores adopt faster when they see the pain, not the PowerPoint."
+      }
+    },
+    "mark1": {
+      "id": "mark1",
+      "creator": "Mark Manson",
+      "title": "14 Brutal Truths I Know At 40 And Wish I Knew At 20",
+      "youtubeUrl": "https://www.youtube.com/watch?v=3P9ySy8Z9ow",
+      "partA": {
+        "coreTraits": [
+          "先否定一个误区，再立自己的观点（reframe / pushback）",
+          "直白、黑色幽默、一针见血"
+        ],
+        "vocab": [
+          { "term": "brutal truth", "meaning": "残忍的真相" },
+          { "term": "procrastination", "meaning": "拖延" },
+          { "term": "compound", "meaning": "复利 / 累积" },
+          { "term": "discipline", "meaning": "自律 / 纪律" },
+          { "term": "self-doubt", "meaning": "自我怀疑" }
+        ],
+        "keySentences": [
+          "We're told that more options mean more freedom. That's bullshit.",
+          "The truth is, constraints are what make decisions feel easy.",
+          "So the goal isn't to keep every door open — it's to close a few with conviction."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（Part 3 同意 / 不同意辩证题）",
+        "pattern": "We're told X. That's [pushback]. The truth is Y.",
+        "question": "Some people believe that having many choices is always a good thing. Discuss both views.",
+        "referenceAnswer": "We're told that more options mean more freedom. That's backwards. The truth is, constraints are what make decisions feel easy — and a PM who says no to the wrong tickets protects the team's focus."
+      },
+      "partC": {
+        "title": "工作侧（复盘会敢于说『我们之前想错了』）",
+        "scenarioPrompt": "先否一个误区，再立观点。黑色幽默可以用，但职场别太野。",
+        "referenceScript": "We're told a good PM says yes to every request. That's backwards. The truth is, protecting the team's focus is the job — so my rule isn't to take more tickets, it's to kill the ones that don't move the metric."
+      }
+    },
+    "cleo2": {
+      "id": "cleo2",
+      "creator": "Cleo Abram — Huge Conversations",
+      "title": "Huge Conversations: Brian Cox 访谈（练『听』）",
+      "youtubeUrl": "https://www.youtube.com/watch?v=bY1EQ6HD-ao",
+      "partA": {
+        "coreTraits": [
+          "多听少说 + 怎么把对话往下带（follow-up questions）",
+          "用追问让专家展开，而不是自己抢着讲"
+        ],
+        "vocab": [
+          { "term": "follow-up question", "meaning": "追问" },
+          { "term": "information paradox", "meaning": "信息悖论" },
+          { "term": "holographic principle", "meaning": "全息原理" },
+          { "term": "perspective", "meaning": "视角" },
+          { "term": "active listening", "meaning": "主动倾听" }
+        ],
+        "keySentences": [
+          "Wait — that's weird. Can you say more about that?",
+          "So if I'm understanding you, the paradox is...",
+          "That's the part that had me questioning my whole reality."
+        ]
+      },
+      "partB": {
+        "title": "雅思侧（听力 S3/S4 学术讨论 —— 练『听』）",
+        "pattern": "关注 Cleo 的追问节奏：先确认理解 → 再抛『that's weird, can you say more』→ 拉到更大图景。",
+        "question": "Listening practice（无口语题）：听 Cleo 怎么追问 Brian Cox，记下 3 个你学到的 follow-up 句式。",
+        "referenceAnswer": "(练习型) 模仿她的『So if I'm understanding you...』和『Wait — that's weird, can you say more about...』。工作会议里，这比你抢着给答案更值钱。"
+      },
+      "partC": {
+        "title": "工作侧（工作会议里的『听 > 说』与追问）",
+        "scenarioPrompt": "用 Cleo 的句式确认理解、带出对方深层需求，而不是急着给方案。",
+        "referenceScript": "So if I'm understanding you, the real blocker isn't the budget — it's the timeline. Can you say more about what happens if we slip Q1? That's the part I want to make sure we get right."
+      }
+    }
+  },
+  "schedule": [
+    { "date": "2026-10-14", "videoId": "matt1", "cycleDay": 1, "focus": "输入与提取" },
+    { "date": "2026-10-15", "videoId": "matt1", "cycleDay": 2, "focus": "雅思输出" },
+    { "date": "2026-10-16", "videoId": "matt1", "cycleDay": 3, "focus": "工作输出" },
+    { "date": "2026-10-17", "videoId": "chris1", "cycleDay": 1, "focus": "输入与提取" },
+    { "date": "2026-10-18", "videoId": "chris1", "cycleDay": 2, "focus": "雅思输出" },
+    { "date": "2026-10-19", "videoId": "chris1", "cycleDay": 3, "focus": "工作输出" },
+    { "date": "2026-10-20", "videoId": "cleo1", "cycleDay": 1, "focus": "输入与提取" },
+    { "date": "2026-10-21", "videoId": "cleo1", "cycleDay": 2, "focus": "雅思输出" },
+    { "date": "2026-10-22", "videoId": "cleo1", "cycleDay": 3, "focus": "工作输出" },
+    { "date": "2026-10-23", "videoId": "johnny1", "cycleDay": 1, "focus": "输入与提取" },
+    { "date": "2026-10-24", "videoId": "johnny1", "cycleDay": 2, "focus": "雅思输出" },
+    { "date": "2026-10-25", "videoId": "johnny1", "cycleDay": 3, "focus": "工作输出" },
+    { "date": "2026-10-26", "videoId": "mark1", "cycleDay": 1, "focus": "输入与提取" },
+    { "date": "2026-10-27", "videoId": "mark1", "cycleDay": 2, "focus": "雅思输出" },
+    { "date": "2026-10-28", "videoId": "mark1", "cycleDay": 3, "focus": "工作输出" },
+    { "date": "2026-10-29", "videoId": "cleo2", "cycleDay": 1, "focus": "输入与提取（听）" },
+    { "date": "2026-10-30", "videoId": "cleo2", "cycleDay": 2, "focus": "雅思听力" },
+    { "date": "2026-10-31", "videoId": "cleo2", "cycleDay": 3, "focus": "工作会议复用" }
+  ]
+}
